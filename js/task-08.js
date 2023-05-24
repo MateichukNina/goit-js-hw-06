@@ -4,13 +4,19 @@ form.addEventListener("submit", handleSubmit);
 
 function handleSubmit(event){
 event.preventDefault();
-const formElements = event.currentTarget.elements;
-const email = formElements.email.value;
-const password = formElements.password.value;
+const { elements } = event.currentTarget;
 
-if (email === "" || password === "") {
+
+if (elements.email.value === "" || elements.password.value === "") {
     return alert("Please fill in all the fields!");
 }
-console.log(`Email: ${email}, Password: ${password}`);
+
+const formData ={};
+for(let element of elements){
+    if(element.type !== "submit"){
+        formData[element.name] = element.value;
+    }
+}
+console.log(formData);
 event.currentTarget.reset();
 }
